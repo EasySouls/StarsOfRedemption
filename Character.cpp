@@ -51,6 +51,9 @@ Character::Character(std::string firstName, std::string lastName, Class _class, 
     m_Hp = m_MaxHp;
 
     m_BaseArmorClass = 10 + GetModifier(m_Dexterity);
+
+    m_Inventory.AddItem(Item("Health Potion", Rarity::Common, ItemID::HEALTH_POTION), 2);
+    m_Inventory.AddItem(Item("Fire tonic", Rarity::Uncommon, ItemID::FIRE_TONIC), 1);
 }
 
 int Character::GetModifier(int attr)
@@ -66,18 +69,23 @@ void Character::DisplayStats()
     std::cout << "Exp: " << m_Exp << std::endl;
     std::cout << "Exp to next level: " << m_ExpToNext << std::endl;
     std::cout << std::endl;
+    std::cout << "HP: " << m_MaxHp << " / " << m_Hp << std::endl;
+    std::cout << "Armor class: " << m_BaseArmorClass << std::endl;
+    std::cout << std::endl;
     std::cout << "Strength: " << m_Strength << std::endl;
     std::cout << "Dexterity: " << m_Dexterity << std::endl;
     std::cout << "Constitution: " << m_Constitution << std::endl;
     std::cout << "Intelligence: " << m_Intelligence << std::endl;
     std::cout << "Wisdom: " << m_Wisdom << std::endl;
     std::cout << "Charisma: " << m_Charisma << std::endl;
-    std::cout << std::endl;
-    std::cout << "HP: " << m_MaxHp << " / " << m_Hp << std::endl;
-    std::cout << "Armor class: " << m_BaseArmorClass << std::endl;
 }
 
-std::string Character::GetName()
+void Character::DisplayInventory()
+{
+    m_Inventory.ListItems();
+}
+
+const std::string& Character::GetName()
 {
     if (m_Name.Title == "" && m_Name.LastName == "")
     {

@@ -20,13 +20,34 @@ void Game::MainMenu()
 {
 	Character& character = m_Characters[m_ActiveCharacter];
 
+	std::cout << "[1]: Adventure" << std::endl;
+	std::cout << "[2]: Rest" << std::endl;
+	std::cout << "[3]: Level up" << std::endl;
+	std::cout << "[4]: Character sheet" << std::endl;
+	std::cout << "[5]: Display inventory" << std::endl;
+	std::cout << "[0]: Quit game" << std::endl;
+
 	std::cout << ">> ";
 	std::cin >> m_Choice;
+	while (std::cin.fail() || m_Choice > 5 || m_Choice < 0)
+	{
+		std::cout << "Incorrect input, please enter the desired action again." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+		std::cout << ">> ";
+		std::cin >> m_Choice;
+	}
 
 	switch (m_Choice)
 	{
 	case 4:
 		character.DisplayStats();
+		break;
+	case 5:
+		character.DisplayInventory();
+		break;
+	case 0:
+		m_IsRunning = false;
 		break;
 	default:
 		break;
@@ -92,7 +113,7 @@ void Game::CreateNewCharacter()
 	}
 
 	m_Characters.emplace_back(name.FirstName, name.LastName, _class, race);
-	m_ActiveCharacter = m_Characters.size() - 1;
+	m_ActiveCharacter = (int)m_Characters.size() - 1;
 }
 
 bool Game::LoadCharacter()

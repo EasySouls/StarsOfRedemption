@@ -1,5 +1,8 @@
 #pragma once
+
 #include <string>
+
+#include "Inventory.h"
 
 struct Name 
 {
@@ -28,11 +31,12 @@ public:
 	int GetModifier(int attr);
 
 	void DisplayStats();
+	void DisplayInventory();
 
-	std::string GetName();
-	inline std::string& GetFirstName() { return m_Name.FirstName; }
-	inline std::string& GetLastName() { return m_Name.LastName; }
-	inline std::string& GetTitle() { return m_Name.Title; }
+	const std::string& GetName();
+	const std::string& GetFirstName() const { return m_Name.FirstName; }
+	const std::string& GetLastName() const { return m_Name.LastName; }
+	const std::string& GetTitle() const { return m_Name.Title; }
 private:
 	Name m_Name;
 	Class m_Class;
@@ -54,6 +58,8 @@ private:
 	int m_Charisma;
 
 	int m_BaseArmorClass;
+
+	Inventory m_Inventory;
 };
 
 
